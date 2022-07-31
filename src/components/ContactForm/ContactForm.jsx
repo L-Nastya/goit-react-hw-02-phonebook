@@ -1,6 +1,7 @@
 import { React, Component } from "react";
 import shortid from "shortid";
 import PropTypes from 'prop-types';
+import styled from "styled-components";
 
 class ContactForm extends Component{
     state = {
@@ -18,11 +19,6 @@ class ContactForm extends Component{
     submitForm = e => {
         e.preventDefault();
         const {name, number} = this.state
-        if (this.props.contacts.find(contact => contact.name === name)) {
-            alert("This contact is already in your list") 
-            return
-         };
-        
         this.props.onSubmit(name, number);
          this.reset();
     };
@@ -32,9 +28,9 @@ class ContactForm extends Component{
     render() {
 
         return (
-            <form onSubmit={this.submitForm}>
-                 <label htmlFor={this.nameInputId}>Name
-                 <input
+            <Form onSubmit={this.submitForm}>
+                 <FormLabel htmlFor={this.nameInputId}>Name
+                 <FormInput
                      type="text"
                      name="name"
                      id={this.nameInputId}
@@ -44,9 +40,9 @@ class ContactForm extends Component{
                      title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                      required
                     />
-                 </label>
-                 <label htmlFor={this.numberInputId}>Phone
-                  <input
+                 </FormLabel>
+                 <FormLabel htmlFor={this.numberInputId}>Phone
+                  <FormInput
                      type="tel"
                      name="number"
                      id={this.numberInputId}
@@ -56,15 +52,46 @@ class ContactForm extends Component{
                      title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                      required
                     />
-                 </label>
-                <button type="submit">ADD CONTACT</button>
-            </form>
+                 </FormLabel>
+                <FormBtn type="submit">ADD CONTACT</FormBtn>
+            </Form>
             
         )
     }
 }
 ContactForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
-    contacts: PropTypes.array.isRequired,
 }
-export default ContactForm
+export default ContactForm;
+
+const Form = styled.form`
+    display: grid;
+    
+`;
+const FormLabel = styled.label`
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
+  margin-bottom: 15px;
+`;
+const FormInput = styled.input`
+ margin-left: 20px;
+ box-shadow:  0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 2px;
+    border: none;
+`;
+
+const FormBtn = styled.button`
+    border: none;
+    border-radius: 5px;
+    font-size: 25px;
+    background-color: #fdfda3;
+    box-shadow:  0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+     &:hover{
+    background-color: #f3da90;
+     transform: scale(1.02);
+ }
+`;

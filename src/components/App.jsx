@@ -1,5 +1,6 @@
 import { React, Component } from "react";
 import shortid from "shortid";
+import styled from "styled-components";
 import Section from "./Section/Section";
 import ContactForm from "./ContactForm/ContactForm";
 import ContactList from "./ContactList/ContactList";
@@ -19,6 +20,10 @@ class App extends Component {
         name,
         number,
     } 
+     if (this.state.contacts.find(contact => contact.name === name)) {
+            alert("This contact is already in your list") 
+            return
+         };
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact]
     }));
@@ -44,9 +49,9 @@ class App extends Component {
   render() {
     const visibleTodos = this.getVisibleTodos();
     return (
-      <>
+      <SectionStyle>
     <Section title="PhoneBook">
-         <ContactForm onSubmit={this.addContact} contacts={this.state.contacts}/>
+         <ContactForm onSubmit={this.addContact} />
        </Section>
         <Section title="Contacts">
           <Filter
@@ -57,9 +62,22 @@ class App extends Component {
             contacts={visibleTodos}
             onDelete={this.deleteContact}
            />
-       </Section></>
+        </Section>
+        </SectionStyle>
   );
   }
  
 };
 export default App
+
+const SectionStyle = styled.div`
+  width: 50%;
+  box-sizing: border-box;
+  padding: 15px;
+  margin: 70px auto;
+  box-shadow:  0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 5px;
+  background-color: #ebdacf;
+
+`;

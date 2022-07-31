@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 // import { Fragment } from 'react';
 // import styled from 'styled-components';
 
@@ -7,7 +8,7 @@ function Section({ title, children }) {
   
     return (
       <div>
-      <h2>{title}</h2>
+      <Title>{title}</Title>
         {children}      
        </div>
     )
@@ -20,3 +21,8 @@ Section.propTypes = {
 }
 
 export default Section;
+
+const Title = styled.h2`
+  text-align: center;
+  font-size: 30px;
+`
